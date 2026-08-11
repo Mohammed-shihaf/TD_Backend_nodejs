@@ -1,23 +1,22 @@
+PROJECT TYPE: White-Label / Multi-Tenant Storefront (standalone backend module)
+(extracted from the connected TD_Whitelabelstorefront_BE_nodejs_FE_reactjs_FE_angularjs- repo)
+
 BUILD COMMANDS
 ==============
 npm install
-npm test        # runs mocha test suite (real, verified passing)
-npm start        # starts Express server on $PORT or 3000
+npm test        # real mocha test suite, verified passing
+npm start        # starts Express server on $PORT or 3000 (Node.js 22)
 
 ARCHITECTURE
 ============
-This is a STANDALONE Node.js backend repo - Express only, no frontend.
-It exists separately from the TD_*_BE_nodejs_FE_reactjs_FE_angularjs
-connected project-type repos, which combine backend + React + Angular
-into single connected applications. This repo is the backend module in
-isolation, branched per Node.js version.
+Backend resolves tenant identity from the x-tenant-id header (in the
+connected repo this is subdomain-based) and returns tenant-scoped
+config via GET /api/tenant-config. Self-serve tenants are served by
+the React storefront, enterprise tenants by the Angular storefront
+(TD_Frontend_reactjs / TD_Frontend_angularjs, same branch name).
 
-  src/app.js          real Express API (GET /api/widgets, GET /health)
+  src/app.js          real Express API with tenant resolution
   test/app.test.js    mocha + supertest + chai test suite
   quality/            13 real JS code-quality tool fixtures
-                       (eslint, nyc, jscpd, lizard, mocha, npm-audit,
-                       npm-cli, npm-ls, stryker-js, diff-cover, pydriller,
-                       eslint-plugin-security, eslint-plugin-sonarjs)
 
-Branches: td-backend-nodejs_nodejs<18|20|22|24> - one per Node.js version,
-each independently `npm install` + `npm test` verified.
+Branches: whitelabelstorefront_nodejs<18|20|22|24>
