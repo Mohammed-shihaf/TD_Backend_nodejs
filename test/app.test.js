@@ -3,11 +3,23 @@ const request = require("supertest");
 const { expect } = require("chai");
 const app = require("../src/app");
 
-describe("GET /api/widgets", () => {
-  it("returns a widgets array", async () => {
-    const res = await request(app).get("/api/widgets");
-    expect(res.status).to.equal(200);
-    expect(res.body.widgets).to.be.an("array");
+describe("GET /", () => {
+  it("reports the migration routes", async () => {
+    const res = await request(app).get("/");
+    expect(res.body.legacy_app).to.equal("/legacy");
+    expect(res.body.new_app).to.equal("/app");
+  });
+});
+
+describe("route splitting", () => {
+  it("serves the legacy placeholder at /legacy", async () => {
+    const res = await request(app).get("/legacy/");
+    expect(res.text).to.include("Legacy App");
+  });
+
+  it("serves the new-app placeholder at /app", async () => {
+    const res = await request(app).get("/app/");
+    expect(res.text).to.include("New App");
   });
 });
 
