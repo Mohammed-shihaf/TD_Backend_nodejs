@@ -5,7 +5,7 @@ BUILD COMMANDS
 ==============
 npm install
 npm test        # real mocha test suite, verified passing
-npm start        # starts Express server on $PORT or 3000 (Node.js 22)
+npm start        # starts Express server on $PORT or 3000 (Node.js 24)
 
 ARCHITECTURE
 ============
