@@ -1,23 +1,23 @@
+PROJECT TYPE: Multi-Product SaaS Platform (standalone backend module)
+(extracted from the connected TD_Saasplatform_BE_nodejs_FE_reactjs_FE_angularjs repo)
+
 BUILD COMMANDS
 ==============
 npm install
-npm test        # runs mocha test suite (real, verified passing)
-npm start        # starts Express server on $PORT or 3000
+npm test        # real mocha test suite, verified passing
+npm start        # starts Express server on $PORT or 3000 (Node.js 22)
 
 ARCHITECTURE
 ============
-This is a STANDALONE Node.js backend repo - Express only, no frontend.
-It exists separately from the TD_*_BE_nodejs_FE_reactjs_FE_angularjs
-connected project-type repos, which combine backend + React + Angular
-into single connected applications. This repo is the backend module in
-isolation, branched per Node.js version.
+One backend, two API namespaces:
+  /api/customer/*   public, consumed by the React storefront
+  /api/admin/*      internal, consumed by the Angular admin app
+The React and Angular frontends live in TD_Frontend_reactjs and
+TD_Frontend_angularjs, branched under the same saasplatform name -
+each only calls its own namespace.
 
-  src/app.js          real Express API (GET /api/widgets, GET /health)
+  src/app.js          real Express API with both namespaces
   test/app.test.js    mocha + supertest + chai test suite
   quality/            13 real JS code-quality tool fixtures
-                       (eslint, nyc, jscpd, lizard, mocha, npm-audit,
-                       npm-cli, npm-ls, stryker-js, diff-cover, pydriller,
-                       eslint-plugin-security, eslint-plugin-sonarjs)
 
-Branches: td-backend-nodejs_nodejs<18|20|22|24> - one per Node.js version,
-each independently `npm install` + `npm test` verified.
+Branches: saasplatform_nodejs<18|20|22|24>
