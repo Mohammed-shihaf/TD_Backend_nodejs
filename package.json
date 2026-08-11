@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "commonjs",
-  "engines": { "node": "22.x" },
+  "engines": { "node": "18.x" },
   "scripts": {
     "start": "node src/app.js",
     "test": "mocha test/**/*.test.js"
