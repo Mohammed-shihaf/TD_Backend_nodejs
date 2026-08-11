@@ -1,23 +1,22 @@
+PROJECT TYPE: Framework Migration Bridge (standalone backend module)
+(extracted from the connected TD_Migrationbridge_BE_nodejs_FE_reactjs_FE_angularjs repo)
+
 BUILD COMMANDS
 ==============
 npm install
-npm test        # runs mocha test suite (real, verified passing)
-npm start        # starts Express server on $PORT or 3000
+npm test        # real mocha test suite, verified passing
+npm start        # starts Express server on $PORT or 3000 (Node.js 22)
 
 ARCHITECTURE
 ============
-This is a STANDALONE Node.js backend repo - Express only, no frontend.
-It exists separately from the TD_*_BE_nodejs_FE_reactjs_FE_angularjs
-connected project-type repos, which combine backend + React + Angular
-into single connected applications. This repo is the backend module in
-isolation, branched per Node.js version.
+Real route-based traffic splitting: /legacy/* serves the old stack,
+/app/* serves the new stack, behind one origin during a migration
+window. In the connected repo, legacy-static/ and app-static/ hold
+real Angular/React build output; here they're minimal placeholders
+so the routing logic itself stays real and independently testable.
 
-  src/app.js          real Express API (GET /api/widgets, GET /health)
+  src/app.js          real Express API with route splitting
   test/app.test.js    mocha + supertest + chai test suite
   quality/            13 real JS code-quality tool fixtures
-                       (eslint, nyc, jscpd, lizard, mocha, npm-audit,
-                       npm-cli, npm-ls, stryker-js, diff-cover, pydriller,
-                       eslint-plugin-security, eslint-plugin-sonarjs)
 
-Branches: td-backend-nodejs_nodejs<18|20|22|24> - one per Node.js version,
-each independently `npm install` + `npm test` verified.
+Branches: migrationbridge_nodejs<18|20|22|24>
