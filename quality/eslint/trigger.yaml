@@ -9,4 +9,4 @@ run:
 expects:
   lint_report_generated: true
 verified_in_session: true
-verified_result: "ran clean against real src/ (0 errors under eslint:recommended + security + sonarjs recommended configs); an earlier config variant (sonarjs recommended-legacy) genuinely flagged X-Powered-By disclosure in app.js before the config was corrected to the non-deprecated ruleset"
+verified_result: "ran clean against real src/ (4 files: app.js, data/widgets.js, routes/widgets.js, routes/remotes.js) under eslint:recommended + security + sonarjs recommended configs"

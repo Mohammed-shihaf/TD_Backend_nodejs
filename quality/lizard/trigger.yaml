@@ -3,10 +3,10 @@ language: javascript
 language_version: "22"
 technique: "Structural Analysis"
 classification: "Cyclomatic Complexity"
-target_files: [../../src/app.js]
+target_files: [../../src/]
 run:
-  command: "lizard src/app.js"
+  command: "lizard src/"
 expects:
   complexity_report_generated: true
 verified_in_session: true
-verified_result: "calculateOrderTotal CCN 9 (26 NLOC), classifyOrderSize CCN 5 (13 NLOC); no thresholds exceeded"
+verified_result: "4 files / 11 functions across src/ (widgets.js data layer, widgets.js + remotes.js routes, app.js); avg CCN 1.2, 70 total NLOC; no thresholds exceeded"

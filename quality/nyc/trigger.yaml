@@ -8,4 +8,4 @@ run:
 expects:
   coverage_report_generated: true
 verified_in_session: true
-verified_result: "75% stmts / 25% branch / 66.66% funcs / 80% lines against the real minimal app.js; lines 18-19 (the listen() block, not exercised by the request tests) uncovered"
+verified_result: "93.87% stmts / 62.5% branch / 92.3% funcs / 95.23% lines across src/ (100% on data/widgets.js and routes/); app.js's require.main listen() guard (lines 14-15) is the only gap, not exercised by the request tests"

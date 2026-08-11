@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "type": "commonjs",
-  "engines": { "node": "22.x" },
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "start": "node src/app.js",
     "test": "mocha test/**/*.test.js"
@@ -12,8 +14,15 @@
     "express": "^4.19.2"
   },
   "devDependencies": {
-    "mocha": "^10.7.3",
+    "@stryker-mutator/core": "^9.6.1",
+    "@stryker-mutator/mocha-runner": "^9.6.1",
     "chai": "^4.5.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-security": "^3.0.1",
+    "eslint-plugin-sonarjs": "0.25.1",
+    "jscpd": "^4.0.5",
+    "mocha": "^10.7.3",
+    "nyc": "^17.1.0",
     "supertest": "^7.0.0"
   }
 }

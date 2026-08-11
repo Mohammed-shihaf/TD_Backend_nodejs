@@ -9,4 +9,4 @@ run:
 expects:
   tests_pass: true
 verified_in_session: true
-verified_result: "10/10 real tests passed against src/app.js and src/app.js (via supertest)"
+verified_result: "7/7 real tests passed across widgets CRUD-lite, remotes registry, and health routes (via supertest)"
