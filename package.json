@@ -1,0 +1,19 @@
+{
+  "name": "td-backend-nodejs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "engines": { "node": "22.x" },
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "mocha test/**/*.test.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "mocha": "^10.7.3",
+    "chai": "^4.5.0",
+    "supertest": "^7.0.0"
+  }
+}
