@@ -1,3 +1,5 @@
+PROJECT TYPE: Micro-Frontend Platform (standalone backend module)
+
 BUILD COMMANDS
 ==============
 npm install
