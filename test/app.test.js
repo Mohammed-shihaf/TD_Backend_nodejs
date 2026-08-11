@@ -3,11 +3,18 @@ const request = require("supertest");
 const { expect } = require("chai");
 const app = require("../src/app");
 
-describe("GET /api/widgets", () => {
-  it("returns a widgets array", async () => {
-    const res = await request(app).get("/api/widgets");
+describe("GET /api/customer/products", () => {
+  it("returns customer-namespace products", async () => {
+    const res = await request(app).get("/api/customer/products");
     expect(res.status).to.equal(200);
-    expect(res.body.widgets).to.be.an("array");
+    expect(res.body.products[0]).to.not.have.property("internalCost");
+  });
+});
+
+describe("GET /api/admin/products", () => {
+  it("returns admin-namespace products with internal fields", async () => {
+    const res = await request(app).get("/api/admin/products");
+    expect(res.body.products[0]).to.have.property("internalCost");
   });
 });
 
