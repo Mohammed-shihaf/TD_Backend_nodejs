@@ -1,16 +1,29 @@
 "use strict";
 const express = require("express");
-const app = express();
-app.use(express.json());
+const http = require("http");
+const { Server } = require("socket.io");
 
-app.get("/api/widgets", (req, res) => {
-  res.json({ widgets: [{ id: 1, label: "Standalone backend widget" }] });
-});
+function buildApp() {
+  const app = express();
+  app.get("/health", (req, res) => res.json({ status: "ok" }));
 
-app.get("/health", (req, res) => res.json({ status: "ok" }));
+  const server = http.createServer(app);
+  const io = new Server(server, { cors: { origin: "*" } });
+
+  io.on("connection", (socket) => {
+    socket.on("widget:add", (label) => {
+      const widget = { id: Date.now(), label };
+      io.emit("widget:added", widget);
+    });
+  });
+
+  return { app, server, io };
+}
 
 if (require.main === module) {
+  const { server } = buildApp();
   const port = process.env.PORT || 3000;
-  app.listen(port, () => console.log(`td-backend-nodejs listening on ${port}`));
+  server.listen(port, () => console.log(`realtime server listening on ${port}`));
 }
-module.exports = app;
+
+module.exports = buildApp;

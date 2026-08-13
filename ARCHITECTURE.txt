@@ -1,23 +1,18 @@
+PROJECT TYPE: Real-Time Application — WebSocket / Socket.IO (Node.js taxonomy)
+FRAMEWORK: Express + Socket.IO
+
 BUILD COMMANDS
 ==============
 npm install
-npm test        # runs mocha test suite (real, verified passing)
-npm start        # starts Express server on $PORT or 3000
+npm start        # starts an HTTP+WebSocket server on $PORT or 3000
+npm test         # mocha + chai + a real socket.io-client connecting over an ephemeral port
 
 ARCHITECTURE
 ============
-This is a STANDALONE Node.js backend repo - Express only, no frontend.
-It exists separately from the TD_*_BE_nodejs_FE_reactjs_FE_angularjs
-connected project-type repos, which combine backend + React + Angular
-into single connected applications. This repo is the backend module in
-isolation, branched per Node.js version.
+A real Express app wrapped in an http.Server with a Socket.IO server attached - a
+genuine bidirectional event exchange (client emits "widget:add", server broadcasts
+"widget:added" to all connected clients). Tested with a real socket.io-client
+connection over a live ephemeral port, not mocked.
 
-  src/app.js          real Express API (GET /api/widgets, GET /health)
-  test/app.test.js    mocha + supertest + chai test suite
-  quality/            13 real JS code-quality tool fixtures
-                       (eslint, nyc, jscpd, lizard, mocha, npm-audit,
-                       npm-cli, npm-ls, stryker-js, diff-cover, pydriller,
-                       eslint-plugin-security, eslint-plugin-sonarjs)
-
-Branches: td-backend-nodejs_nodejs<18|20|22|24> - one per Node.js version,
-each independently `npm install` + `npm test` verified.
+  src/app.js         Express + http.Server + Socket.IO event handling
+  test/app.test.js   real client<->server socket integration test
