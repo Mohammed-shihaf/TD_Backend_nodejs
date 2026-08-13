@@ -1,19 +1,23 @@
 "use strict";
-const request = require("supertest");
 const { expect } = require("chai");
-const app = require("../src/app");
+const buildApp = require("../src/app");
 
-describe("GET /api/widgets", () => {
-  it("returns a widgets array", async () => {
-    const res = await request(app).get("/api/widgets");
-    expect(res.status).to.equal(200);
-    expect(res.body.widgets).to.be.an("array");
+describe("microservice (Fastify)", () => {
+  let app;
+  beforeEach(() => {
+    app = buildApp();
   });
-});
+  afterEach(() => app.close());
 
-describe("GET /health", () => {
-  it("reports ok", async () => {
-    const res = await request(app).get("/health");
-    expect(res.body.status).to.equal("ok");
+  it("GET /health reports ok", async () => {
+    const res = await app.inject({ method: "GET", url: "/health" });
+    expect(res.statusCode).to.equal(200);
+    expect(JSON.parse(res.payload).status).to.equal("ok");
+  });
+
+  it("GET /api/widgets/count returns a count", async () => {
+    const res = await app.inject({ method: "GET", url: "/api/widgets/count" });
+    expect(res.statusCode).to.equal(200);
+    expect(JSON.parse(res.payload).count).to.equal(1);
   });
 });

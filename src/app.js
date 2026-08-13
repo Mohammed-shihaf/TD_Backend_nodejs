@@ -1,16 +1,29 @@
 "use strict";
-const express = require("express");
-const app = express();
-app.use(express.json());
+const Fastify = require("fastify");
 
-app.get("/api/widgets", (req, res) => {
-  res.json({ widgets: [{ id: 1, label: "Standalone backend widget" }] });
-});
+function buildApp() {
+  const app = Fastify({ logger: false });
 
-app.get("/health", (req, res) => res.json({ status: "ok" }));
+  app.get("/health", async () => ({ status: "ok" }));
+
+  app.get("/api/widgets/count", async () => {
+    const widgets = [{ id: 1, label: "Standalone backend widget" }];
+    return { count: widgets.length };
+  });
+
+  return app;
+}
 
 if (require.main === module) {
+  const app = buildApp();
   const port = process.env.PORT || 3000;
-  app.listen(port, () => console.log(`td-backend-nodejs listening on ${port}`));
+  app.listen({ port }, (err) => {
+    if (err) {
+      app.log.error(err);
+      process.exit(1);
+    }
+    console.log(`td-backend-nodejs microservice listening on ${port}`);
+  });
 }
-module.exports = app;
+
+module.exports = buildApp;

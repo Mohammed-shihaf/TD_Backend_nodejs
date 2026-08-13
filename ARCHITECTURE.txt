@@ -1,23 +1,18 @@
+PROJECT TYPE: Microservice (Node.js taxonomy)
+FRAMEWORK: Fastify
+
 BUILD COMMANDS
 ==============
 npm install
-npm test        # runs mocha test suite (real, verified passing)
-npm start        # starts Express server on $PORT or 3000
+npm start        # starts Fastify server on $PORT or 3000
+npm test         # mocha + chai, using Fastify's built-in .inject() (no real socket needed)
 
 ARCHITECTURE
 ============
-This is a STANDALONE Node.js backend repo - Express only, no frontend.
-It exists separately from the TD_*_BE_nodejs_FE_reactjs_FE_angularjs
-connected project-type repos, which combine backend + React + Angular
-into single connected applications. This repo is the backend module in
-isolation, branched per Node.js version.
+A real minimal single-responsibility microservice - a narrow, focused API surface
+(/health + one /api/widgets/count endpoint), built with Fastify rather than Express,
+which is a common choice for microservices due to its lower overhead/higher throughput
+and built-in schema-based routing.
 
-  src/app.js          real Express API (GET /api/widgets, GET /health)
-  test/app.test.js    mocha + supertest + chai test suite
-  quality/            13 real JS code-quality tool fixtures
-                       (eslint, nyc, jscpd, lizard, mocha, npm-audit,
-                       npm-cli, npm-ls, stryker-js, diff-cover, pydriller,
-                       eslint-plugin-security, eslint-plugin-sonarjs)
-
-Branches: td-backend-nodejs_nodejs<18|20|22|24> - one per Node.js version,
-each independently `npm install` + `npm test` verified.
+  src/app.js         Fastify app factory (buildApp)
+  test/app.test.js   tests using Fastify's app.inject() harness
