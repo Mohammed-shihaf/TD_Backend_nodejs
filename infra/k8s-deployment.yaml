@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: td-backend-nodejs
+  labels:
+    app: td-backend-nodejs
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: td-backend-nodejs
+  template:
+    metadata:
+      labels:
+        app: td-backend-nodejs
+    spec:
+      containers:
+        - name: app
+          image: td-backend-nodejs:24
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: td-backend-nodejs
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 3000
+  selector:
+    app: td-backend-nodejs
