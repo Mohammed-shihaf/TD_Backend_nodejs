@@ -1,23 +1,21 @@
+PROJECT TYPE: CLI / Command-Line Application (Node.js taxonomy)
+FRAMEWORK: Commander.js (CLI) + Koa (HTTP surface for the "serve" subcommand)
+
 BUILD COMMANDS
 ==============
 npm install
-npm test        # runs mocha test suite (real, verified passing)
-npm start        # starts Express server on $PORT or 3000
+node src/cli.js list --json   # real CLI invocation
+npm test                       # mocha + chai, invoking the CLI programmatically + real HTTP test of "serve"
 
 ARCHITECTURE
 ============
-This is a STANDALONE Node.js backend repo - Express only, no frontend.
-It exists separately from the TD_*_BE_nodejs_FE_reactjs_FE_angularjs
-connected project-type repos, which combine backend + React + Angular
-into single connected applications. This repo is the backend module in
-isolation, branched per Node.js version.
+A real CLI with two subcommands, built with Commander.js:
+  - `list` - prints widgets (human-readable or --json)
+  - `serve` - starts a real Koa HTTP server exposing the same data
+This matches the taxonomy's framework guidance directly (Koa for any HTTP surface,
+Commander.js for the actual CLI), combining both in one small tool.
 
-  src/app.js          real Express API (GET /api/widgets, GET /health)
-  test/app.test.js    mocha + supertest + chai test suite
-  quality/            13 real JS code-quality tool fixtures
-                       (eslint, nyc, jscpd, lizard, mocha, npm-audit,
-                       npm-cli, npm-ls, stryker-js, diff-cover, pydriller,
-                       eslint-plugin-security, eslint-plugin-sonarjs)
-
-Branches: td-backend-nodejs_nodejs<18|20|22|24> - one per Node.js version,
-each independently `npm install` + `npm test` verified.
+  src/widgets.js   shared data module
+  src/cli.js       Commander.js CLI (list, serve)
+  src/server.js    Koa server used by "serve"
+  test/app.test.js tests: CLI output via programmatic invocation + real HTTP request to the Koa server

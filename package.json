@@ -1,19 +1,19 @@
 {
-  "name": "td-backend-nodejs",
+  "name": "td-backend-nodejs-cli-koa-commander",
   "version": "1.0.0",
   "private": true,
   "type": "commonjs",
-  "engines": { "node": "22.x" },
+  "engines": { "node": "20.x" },
+  "bin": { "td-widgets": "src/cli.js" },
   "scripts": {
-    "start": "node src/app.js",
     "test": "mocha test/**/*.test.js"
   },
   "dependencies": {
-    "express": "^4.19.2"
+    "commander": "^12.1.0",
+    "koa": "^2.15.3"
   },
   "devDependencies": {
     "mocha": "^10.7.3",
-    "chai": "^4.5.0",
-    "supertest": "^7.0.0"
+    "chai": "^4.5.0"
   }
 }
