@@ -1,9 +1,9 @@
 {
-  "name": "td-backend-nodejs",
+  "name": "td-backend-nodejs-restapi-express",
   "version": "1.0.0",
   "private": true,
   "type": "commonjs",
-  "engines": { "node": "22.x" },
+  "engines": { "node": "20.x" },
   "scripts": {
     "start": "node src/app.js",
     "test": "mocha test/**/*.test.js"
