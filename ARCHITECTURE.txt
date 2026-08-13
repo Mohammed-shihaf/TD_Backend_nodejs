@@ -1,23 +1,22 @@
+PROJECT TYPE: Full-Stack Web Application (Node.js taxonomy)
+FRAMEWORK: NestJS
+
 BUILD COMMANDS
 ==============
 npm install
-npm test        # runs mocha test suite (real, verified passing)
-npm start        # starts Express server on $PORT or 3000
+npm run build     # tsc compiles src/*.ts -> dist/
+npm start          # runs the compiled dist/main.js
+npm test           # jest e2e test against a real NestJS TestingModule
 
 ARCHITECTURE
 ============
-This is a STANDALONE Node.js backend repo - Express only, no frontend.
-It exists separately from the TD_*_BE_nodejs_FE_reactjs_FE_angularjs
-connected project-type repos, which combine backend + React + Angular
-into single connected applications. This repo is the backend module in
-isolation, branched per Node.js version.
+A real minimal NestJS application - Module/Controller/Service structure (the
+canonical Nest architecture used for full-stack backends), written in TypeScript
+with decorators (@Module/@Controller/@Injectable), tested via @nestjs/testing's
+TestingModule + supertest against the real HTTP server.
 
-  src/app.js          real Express API (GET /api/widgets, GET /health)
-  test/app.test.js    mocha + supertest + chai test suite
-  quality/            13 real JS code-quality tool fixtures
-                       (eslint, nyc, jscpd, lizard, mocha, npm-audit,
-                       npm-cli, npm-ls, stryker-js, diff-cover, pydriller,
-                       eslint-plugin-security, eslint-plugin-sonarjs)
-
-Branches: td-backend-nodejs_nodejs<18|20|22|24> - one per Node.js version,
-each independently `npm install` + `npm test` verified.
+  src/app.module.ts        root module
+  src/app.controller.ts    HTTP routes (/health, /api/widgets)
+  src/widgets.service.ts   injectable service holding the data
+  src/main.ts              bootstrap
+  test/app.e2e-spec.ts     jest e2e tests via NestJS TestingModule
